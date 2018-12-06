@@ -1,0 +1,73 @@
+   .triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #555;
+  }
+  .square {
+  height: 50px;
+  width: 50px;
+  background-color: #555;
+  }
+  .circle {
+  height: 50px;
+  width: 50px;
+  background-color: #555;
+  border-radius: 50%;
+  }
+  .diamond {
+    width: 50px;
+    height: 50px;
+    background-color: #555;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    -o-transform:rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin:0 100%;
+    -moz-transform-origin:0 100%;
+    -ms-transform-origin:0 100%;
+    -o-transform-origin:0 100%;
+    transform-origin:0 100%;
+    margin-top: 30px;
+    margin-left: 50px; 
+  }
+
+
+     .triangle-up1 {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 80px solid #555;
+  }
+  .square1 {
+  height: 80px;
+  width: 80px;
+  background-color: #555;
+  }
+  .circle1 {
+  height: 80px;
+  width: 80px;
+  background-color: #555;
+  border-radius: 50%;
+  }
+  .diamond1 {
+    width: 60px;
+    height: 60px;
+    background-color: #555;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    -o-transform:rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin:0 100%;
+    -moz-transform-origin:0 100%;
+    -ms-transform-origin:0 100%;
+    -o-transform-origin:0 100%;
+    transform-origin:0 100%;
+    margin-top: 30px;
+    margin-left: 60px; 
+
+  }

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style type="text/css">
+
+.parallax { 
+    /* The image used */
+    background-image: url("no.jpg");
+
+    /* Full height */
+    height: 400px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+body, html {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.bg-img {
+    /* The image used */
+    background-image: url("no.jpg");
+
+    height: 700px;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Add styles to the form container */
+.container-login {
+    align-content: center;
+    margin: 20px auto;
+    max-width: 300px;
+    padding: 16px;
+  background: rgba(0, 0, 0, 0.1); /* Black background with 0.5 */
+    color: #f1f1f1;
+    border-style: dotted;
+    border-width: 2px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit button */
+.btn {
+    background-color: #9C6000;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+  </style>
+  <title>Cafe Kolong</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.grid.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/js-3.2.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+
+</script>
+</head>
+<body id="profile" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<div class="bg-img" style="padding-top: 100px">
+  <form method="post" ="post" class="container-login">
+
+  <?php
+  include("connect.php");
+if (isset($_POST['signin'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $select = "SELECT * FROM pengguna WHERE username='$username' AND password='$password';";
+  $result = mysqli_query($connection, $select);
+  $row = mysqli_fetch_array($result);
+
+          if (mysqli_num_rows($result)>0) {
+            session_start();
+            $_SESSION['nama']=$row['nama'];
+
+            header("location:1.index.php");
+          } else {?>
+
+        <div class="alert alert-danger" role="alert ">
+          Login Gagal!! Periksa Kembali Username dan Password Anda.
+        </div>
+
+        <?php   }
+
+}
+
+?>
+    <h1>Login</h1>
+
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Enter username" name="username" required>
+    <label for="psw"><b>Password</b></label> 
+      <input type="password" class="form-control" name="password" placeholder="Enter password" id="myInput">
+      <input type="checkbox" onclick="myFunction()">Show Password
+    <button type="submit" class="btn" name="signin" >Login</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </form>
+</div>
+
+</body>
+</html>
