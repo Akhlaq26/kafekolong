@@ -1,26 +1,7 @@
-<?php
-  include('connect.php');
-?>
-<?php
- if (isset($_POST['buttoninsert'])) {
-          $tanggal = $_POST['tanggal1'];
-          $email = $_POST['email'];
-          $nomeja = $_POST['nomeja'];
-          $waktu = $_POST['jam'];
-          
 
-            $queryinsert = "INSERT INTO transaksi (tanggal, email,  nomeja)
-                  Values ('$tanggal','$email', $nomeja1);";        
-          if (mysqli_query($connection, $queryinsert)){
-            echo "<meta http-equiv='refresh' content='0;url=3.2.ordermakan.php'> ";
-          }else{
-            echo "anda gagal menambah data)";
-          }
-      }
-    ?>
 <!-- Modal insert buku-->
 
-<div class="modal fade" id="modalPilih" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalPilih<?php echo $datameja['nomeja']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -31,7 +12,7 @@
       </div>
 
       <?php
-      $nomeja=["nomeja"];
+      $nomeja=$datameja["nomeja"];
 
       ?>
 

@@ -96,9 +96,22 @@ font{
         include("pilihmeja.php");
       }
      }
-             
-      ?>
-       
+ if (isset($_POST['buttoninsert'])) {
+          $tanggal = $_POST['tanggal1'];
+          $email = $_POST['email'];
+          $nomeja1 = $_POST['nomeja1'];
+          $waktu = $_POST['jam'];
+          
+
+           $queryinsert = "INSERT INTO transaksi (tanggal, email,  nomeja)
+                  Values ('$tanggal','$email', $nomeja1);";        
+          if (mysqli_query($connection, $queryinsert)){
+            echo "<meta http-equiv='refresh' content='0;url=3.2.ordermakan.php'> ";
+          }else{
+            echo "anda gagal menambah data)";
+          }
+      }
+    ?>            
      </div>
   </div>
 </div>
