@@ -236,7 +236,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <button class="btn" >Order</button>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -259,7 +259,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <button class="btn" >Order</button>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -282,7 +282,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <button class="btn" >Order</button>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -303,7 +303,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <button class="btn" >Order</button>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
