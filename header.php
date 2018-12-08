@@ -16,7 +16,12 @@
         <li><a href="4.1.event.php">EVENT</a></li>
                         <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><?php  echo $_SESSION['nama']?><i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><?php      if (isset($_SESSION['nama'])) {
+    echo $_SESSION['nama'];
+   }else{
+    echo "<li><a href=5.1.1.login.php   >LOGIN</a></li>";
+   }
+    ?><i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
