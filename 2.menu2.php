@@ -213,13 +213,11 @@ body {
   </div>
 </div>
 <div class="container-button" style="float: right;">
-    <a href="Keranjang.php" class="notification" >
+    <a href="3.1.order.php" class="notification" >
   <span>Keranjang</span>
   <span class="badge">3</span>
 </a>
 </div>
-
-
 
 <!-- Page content -->
 <div class="main" style="width: 1140px" >
@@ -238,7 +236,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -261,7 +259,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -284,7 +282,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>
@@ -305,7 +303,7 @@ body {
             <p><strong> <?php echo $row['nama']?></strong></p>
             <p><?php echo $row['deskripsi']?></p>
             <p><?php echo $row['harga']?></p>
-            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+            <a href="3.1.order.php"><button class="btn" >Order</button></a>
           </div>
         </div>
       </div>

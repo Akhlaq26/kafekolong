@@ -109,27 +109,9 @@ input[type=email]:focus, input[type=password]:focus {
 </head>
 <body id="login" data-spy="scroll" data-target="navbar" data-offset="50">
 
-<nav class="navbar  navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <img src="image/kk.png" alt="Chicago" width="100" height="100">
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-top: 25px">
-        <li><a href="index.php">HOME</a></li>
-        <li><a href="2.menu.php">MENU</a></li>
-        <li><a href="3.1.order.php">ORDER</a></li>
-        <li><a href="4.1.event.php">EVENT</a></li>
-        <li><a href="5.1.1.login.php">LOGIN</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<?php
+  include("header.php");
+?>
 
 <div class="bg-img" style="padding-top: 50px; margin-top: 100px ">
 
@@ -159,7 +141,7 @@ if (isset($_POST['signin'])) {
 
           if (mysqli_num_rows($result)==1) {
             session_start();
-            $_SESSION['nama']=$row['nama'];
+            $_SESSION['nama']=$row['nama_user'];
             $_SESSION['email']=$row['email'];
 
             echo "<meta http-equiv='refresh' content='0;url=1.index.php'> ";

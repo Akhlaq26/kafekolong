@@ -109,41 +109,10 @@ input[type=text]:focus, input[type=password]:focus {
 </head>
 <body id="login" data-spy="scroll" data-target="navbar" data-offset="50">
 
-<nav class="navbar  navbar-fixed-top ">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <img src="image/kk.png" alt="logo" width="100" height="100">
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-top: 25px; font-size: 15px">
-        <li><a href="1.index.php">HOME</a></li>
-        <li><a href="2.menu.php">MENU</a></li>
-        <li><a href="3.1.order.php">ORDER</a></li>
-        <li><a href="4.1.event.php">EVENT</a></li>
-                        <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>Profile<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="5.1.1.login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<?php
+  include("header.php");
+?>
+
 <div class="bg-img" style="padding-top: 5px; margin-top: 100px ">
       <form method="post" class="container-login">
     <div class="row">
@@ -153,24 +122,24 @@ input[type=text]:focus, input[type=password]:focus {
     <div class="col-sm-6">
     
     <label for="name"><b>Nama</b></label>
-    <input type="text" placeholder="Enter Name" name="nama" required>
-
+    <input type="text" placeholder="Enter Name" name="nama" style="color: black" required>
+ 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <input type="password" placeholder="Enter Password" name="password" style="color: black" required>
 
     <label for="re-psw"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Enter Password" required>
+    <input type="password" placeholder="Enter Password" style="color: black" required>
 
     </div>
     <div class="col-sm-6">
     <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+    <input type="text" placeholder="Enter Email" name="email" style="color: black" required>
 
     <label for="telp"><b>Telpon</b></label>
-    <input type="text" placeholder="telp number" name="telp" required>
+    <input type="text" placeholder="telp number" name="telp" style="color: black" required>
 
     <label for="address"><b>Address</b></label>
-    <input type="text" placeholder="address" name="alamat" required>
+    <input type="text" placeholder="address" name="alamat" style="color: black" required>
     </div>
     </div>
     <p>By creating an account you agree to our <a href="#" style="color: yellow;">Terms & Privacy</a>.</p>
@@ -185,25 +154,14 @@ input[type=text]:focus, input[type=password]:focus {
           $telpon = $_POST['telp'];
           $alamat = $_POST['alamat'];
 
-          $queryinsert = "INSERT INTO user (email, password, nama,  telp, alamat) Values ('$email','$password','$nama', $telpon,'$alamat');";
+          $queryinsert = "INSERT INTO user (email, password, nama_user,  telp, alamat) Values ('$email','$password','$nama', $telpon,'$alamat');";
             $resultinsert = mysqli_query($connection, $queryinsert);
             $row = mysqli_fetch_array($resultinsert);
 
-          
-            session_start();
-            $_SESSION['nama']=$row['nama'];
-
-            echo "<meta http-equiv='refresh' content='0;url=1.index.php'> ";
+            echo "<meta http-equiv='refresh' content='0;url=5.1.1.login.php'> ";
  }
-           else {?>
+            ?>
 
-        <div class="alert alert-danger" role="alert ">
-          Login Gagal!! Periksa Kembali Username dan Password Anda.
-        </div>
-
-        <?php   }
-
-?>
   </form>
 </div>
 

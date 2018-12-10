@@ -107,7 +107,7 @@ font{
            $queryinsert = "INSERT INTO transaksi (tanggal, email,  nomeja)
                   Values ('$tanggal','$email', $nomeja1);";        
           if (mysqli_query($connection, $queryinsert)){
-            echo "<meta http-equiv='refresh' content='0;url=3.2.ordermakan.php'> ";
+            echo "<meta http-equiv='refresh' content='0;url=2.menu.php'> ";
           }else{
             echo "anda gagal menambah data)";
           }
