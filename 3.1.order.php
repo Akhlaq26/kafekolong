@@ -52,11 +52,26 @@ font{
     <div class="col-sm-3" style="align-content: center;">
     <form method="get">
       <font>PILIH TANGGAL</font>
-      <input type="date" name="tanggal">
-      <input type="submit" class="btn" value="Check Availability" >
-    </form>
+      <input type="date" name="tanggal" >
       <center><font>Jam</font></center>
-      <input type="time" name="waktu"></center>
+              <select name="jam" required>
+          <option></option>
+          <option values="18:00">18:00</option>
+          <option values="18:30">18:30</option>
+          <option values="19:00">19:00</option>
+          <option values="19:30">19:30</option>
+          <option values="20:00">20:00</option>
+          <option values="20:30">20:30</option>
+          <option values="21:00">21:00</option>
+          <option values="21:30">21:30</option>
+          <option values="22:00">22:00</option>
+          <option values="22:30">22:30</option>
+          <option values="23:00">23:00</option>
+          <option values="23:30">23:30</option>
+          <option values="00:00">00:00</option>
+        </select>
+        <input type="submit" class="btn" name="submit" value="Check Availability" >
+      </form>
         <font>Kapasitas Meja</font></center>
         <center><div class="triangle-up" style="color:  #f7ca18;"></div></center>
         <center><font>2 orang</font></center>
@@ -70,11 +85,12 @@ font{
     </div>
 
     <?php
-          if(isset($_GET['tanggal'])){
+          if(isset($_GET['submit'])){
         $tgl = $_GET['tanggal'];
-        $sql = mysqli_query($connection,"select * from meja");
+        $jam = $_GET['jam'];
+        $sql = mysqli_query($connection,"SELECT * FROM meja");
       
-        $sql1 = mysqli_query($connection,"SELECT * FROM transaksi JOIN meja ON transaksi.nomeja=meja.nomeja ");
+        $sql1 = mysqli_query($connection,"SELECT * FROM pemesanan JOIN meja ON pemesanan.nomeja=meja.nomeja");
       $data = mysqli_fetch_array($sql1);
 
           
@@ -90,7 +106,7 @@ font{
     <div class="col-sm-4" style="border-style: solid ; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $datameja['gambarmeja']?>"  style="width: 500px; height: 300px;">
-            <button type="button" class="btn" data-toggle="modal" data-target="#modalPilih<?php echo $datameja['nomeja']?>" <?php if ($data['tanggal'] == $tgl AND $data['nomeja'] == $datameja['nomeja']){ ?> disabled <?php   } ?>>  <?php echo $datameja['nomeja']?></button>
+            <button type="button" class="btn" data-toggle="modal" data-target="#modalPilih<?php echo $datameja['nomeja']?>" <?php if ($data['tanggal_pemesanan'] == $tgl AND $data['nomeja'] == $datameja['nomeja'] AND $jam == $data['waktu_pemesanan']){ ?> disabled <?php   } ?>>  <?php echo $datameja['nomeja']?></button>
           </div>
         </div>
           <?php 
@@ -99,18 +115,19 @@ font{
      }
  if (isset($_POST['buttoninsert'])) {
           $tanggal = $_POST['tanggal1'];
-          $email = $_POST['email'];
-          $nomeja1 = $_POST['nomeja1'];
-          $waktu = $_POST['jam'];
+          $nama    = $_POST['nama1'];
+          $nomeja = $_POST['nomeja1'];
+          $jam    = $_POST['jam1'];
+          
+         session_start();
+          $_SESSION['tanggal']    =  $tanggal;
+          $_SESSION['nama_user']  =  $nama;
+          $_SESSION['nomeja']     =  $nomeja;
+          $_SESSION['jam']        =  $jam;
+          
           
 
-           $queryinsert = "INSERT INTO transaksi (tanggal, email,  nomeja)
-                  Values ('$tanggal','$email', $nomeja1);";        
-          if (mysqli_query($connection, $queryinsert)){
             echo "<meta http-equiv='refresh' content='0;url=2.menu.php'> ";
-          }else{
-            echo "anda gagal menambah data)";
-          }
       }
     ?>            
      </div>

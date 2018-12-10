@@ -2,7 +2,8 @@
   include("connect.php");
 ?>
 <?php 
-  session_start();
+session_start()
+
 
  ?>
 <!DOCTYPE html>
@@ -212,17 +213,34 @@ body {
     </form>
   </div>
 </div>
-<div class="container-button" style="float: right;">
-    <a href="Keranjang.php" class="notification" >
+<div class="container-button" style="float: right; width: 160px">
+   <button class="btn" data-toggle="modal" data-target="#modalKeranjang">
   <span>Keranjang</span>
-  <span class="badge">3</span>
-</a>
+        <?php if(!isset($_SESSION['keranjang'])){?>
+           <span class="badge">0</span>      
+       <?php }else{
+          $totalbelanja = 0;
+                  foreach ($_SESSION['keranjang'] as $idmenu => $jumlah):
+                        
+              $ambil = $connection->query("SELECT * FROM menu WHERE idmenu='$idmenu'");
+              $pecah = $ambil ->fetch_assoc();
+              $subharga = $pecah["harga"]*$jumlah;  
+              
+                   $totalbelanja+=$subharga; 
+                   endforeach
+                   ?>
+         <span class="badge">Rp.<?php echo number_format($totalbelanja) ?></span>
+       <?php }?>
+  </button>
+<?php
+  include("keranjang.php");
+?>
 </div>
 
 
 
 <!-- Page content -->
-<div class="main" style="width: 1140px" >
+<div class="main" style="width: 1000px; " >
     <?php
   if (isset($_POST['allmenu'])) {
   $queryselect = "SELECT *FROM menu";

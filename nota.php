@@ -49,17 +49,22 @@ $detail = $ambil->fetch_assoc();
 	 		<?php echo $detail['email']; ?>
 		</p>
 	</div>
-	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<h3>Pemesanan</h3>
+		<p>Tanggal	: <strong> <?php echo $_SESSION['tanggal']?></strong><br>
+		No. Meja	: <strong> <?php echo $_SESSION['nomeja'] ?></strong><br>
+		Waktu		: <strong> <?php echo $_SESSION['jam']?></strong></p>
+	</div>
 </div>
 
 <table class="table table-bordered">
 	<thead>
 	<tr>
-		<th>no</th>
-		<th>nama produk</th>
-		<th>harga</th>
-		<th>jumlah</th>
-		<th>subtotal</th>
+		<th>No</th>
+		<th>Nama Produk</th>
+		<th>Harga</th>
+		<th>Jumlah</th>
+		<th>Subtotal</th>
 	</tr>
 	</thead>
 	<tbody>

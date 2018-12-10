@@ -9,7 +9,22 @@ if (!isset($_SESSION["nama"]))
 					
 }
 ?>
-
+<?php
+if (empty($_SESSION["keranjang"]) OR !isset($_SESSION["keranjang"])) 
+{
+	
+		echo "<script>alert('Keranjang kosong, mohon Pesan terlebih dahulu! :)');</script>";
+		echo "<script>location='2.menu.php';</script>";
+}
+?>
+<?php
+if (!isset($_SESSION["tanggal"])) 
+{
+	
+		echo "<script>alert('Mohon Pesan Meja terlebih dahulu! :)');</script>";
+		echo "<script>location='3.1.order.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +51,29 @@ if (!isset($_SESSION["nama"]))
 	<div class="container">
 		<h1>Keranjang Belanja</h1>
 		<hr>
-		<table class="table table-bordered">
+		<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+		<h3>Pemesanan</h3>
+		<p>Tanggal	: <strong> <?php echo $_SESSION['tanggal']?></strong><br>
+		Nama		: <strong> <?php echo $_SESSION['nama_user']?></strong><br>
+		No. Meja	: <strong> <?php echo $_SESSION['nomeja'] ?></strong><br>
+		Waktu		: <strong> <?php echo $_SESSION['jam']?></strong></p>
+		<button class="btn" style="width: 200px" name="btnBatal">Ubah Pemesanan</button>
+		</form>
+	</div>
+	<?php
+		if (isset($_POST['btnBatal'])) {
+			unset($_SESSION["tanggal"]);
+			unset($_SESSION['nama_user']);
+			unset($_SESSION['nomeja']);
+			unset($_SESSION['jam']);
+
+			echo "<script>location='3.1.order.php';</script>";
+		}
+	?>
+	</div>
+		<table class="table table-hover">
 			<thead>
 			<tr>
 				<th>No</th>
@@ -84,16 +121,28 @@ if (!isset($_SESSION["nama"]))
 			{
 				$nama_user = $_SESSION["nama"];
 				$tanggal_pembelian = date("Y-m-d");
-
 				$total_pembelian = $totalbelanja;
-
+				$nomeja1 = $_SESSION['nomeja'];
+				$tanggal = $_SESSION['tanggal'];
+				$jam1 = $_SESSION['jam'];
 				//menyimpan data ke tabel pembelian
-				$connection->query("INSERT INTO pembelian (nama_user,tanggal_pembelian,total_pembelian)
-					VALUES ('$nama_user','$tanggal_pembelian','$total_pembelian')
+				$connection->query("INSERT INTO pembelian (nama_user,tanggal_pembelian,total_pembelian,nomeja,tanggal_pemesanan,waktu_pemesanan)
+					VALUES ('$nama_user','$tanggal_pembelian','$total_pembelian','$nomeja1','$tanggal','$jam1')
 					");
 
 				//id_pembelian baru 
 				$id_pembelian_baru  = $connection ->insert_id;
+
+				//menambah meja
+				          $tanggal = $_SESSION['tanggal'];
+				          $nama = $_SESSION['nama_user'];
+				          $nomeja1 = $_SESSION['nomeja'];
+				          $jam1 = $_SESSION['jam'];
+          
+
+           		  $queryinsert = "INSERT INTO transaksi (tanggal_pemesanan, email, waktu_pemesanan, nomeja)
+                  Values ('$tanggal','$nama', '$jam1', $nomeja1);";    
+                  mysqli_query($connection, $queryinsert);
 
 				foreach ($_SESSION["keranjang"] as $idmenu => $jumlah) 
 				{

@@ -20,19 +20,19 @@
       <div class="modal-body">
   <div class="form-group row">
     <div class="col-sm-10">
-      <input type="hidden" class="form-control" name="tanggal1" placeholder="tanggal" value="<?php echo $tgl?>" >
+      <input type="date" class="form-control" name="tanggal1" placeholder="tanggal" value="<?php echo $tgl?>"  >
     </div>
   </div>
    <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" name="email" placeholder="email" value="<?php  echo $_SESSION['email']?>">
+      <input type="text" class="form-control" name="nama1" placeholder="nama" value="<?php  echo $_SESSION['nama']?>" >
     </div>
   </div>
    <div class="form-group row">
     <label for="inputEmail3" class="col-sm-3 col-form-label">Waktu</label>
     <div class="col-sm-10">
-      <input type="time" class="form-control" name="jam" placeholder="Waktu">
+      <input type="time" class="form-control" name="jam1" placeholder="Waktu" value="<?php echo $jam?>" >
     </div>
   </div>
      <div class="form-group row">

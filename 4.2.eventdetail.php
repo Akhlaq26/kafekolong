@@ -1,3 +1,7 @@
+<?php
+  include('connect.php');
+ 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,9 +62,15 @@
   </div>
 </nav>
 
+
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Event</p></center>
 </div>
+<?php
+  $queryselect = "SELECT * FROM event ORDER BY idevent DESC limit 3";
+  $resultselect = mysqli_query($connection, $queryselect);
+ 
+  ?>
 
 	<div class="container">
 		<center>
@@ -97,76 +107,31 @@
 				<option value="2018">2018</option>
 			</select>
 			
+      
 				<button class="btn" data-toggle="modal" data-target="#myModal" style="padding:9px 24px">Ok</button>
 		</center>
 		<div class="container">
 			<input type="text" id="fname" name="name">
 			<a href="#"><span class="glyphicon glyphicon-search"></span></a>
 		</div>
-		    <div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/182.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Blink-182</center></strong></p>
-          			<p><center>28 Januari 2018</center></p>
-           		</div>
-      		</div>
-			<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/bfs.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Bowling For Soup</center></strong></p>
-          			<p><center>20 Pebruari 2018</center></p>
-           		</div>
-      		</div>
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/blackpink.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Black Pink</center></strong></p>
-          			<p><center>27 Pebruari 2018</center></p>
-           		</div>
-      		</div>
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/brunomars.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Bruno Mars</center></strong></p>
-          			<p><center>15 Maret 2018</center></p>
-           		</div>
-      		</div>
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/coldplay.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Cold Play</center></strong></p>
-          			<p><center>26 Maret 2018</center></p>
-           		</div>
-      		</div>
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/johnmayer.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>John Mayer</center></strong></p>
-          			<p><center>5 April 2018</center></p>
-           		</div>
-      		</div>
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/kotak.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Kotak</center></strong></p>
-          			<p><center>16 April 2018</center></p>
-           		</div>
-      		</div>      		
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/netral.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Netral</center></strong></p>
-          			<p><center>15 Mei 2018</center></p>
-           		</div>
-      		</div>      		
-      		<div class="col-sm-4">
-        		<div class="thumbnail">
-          			<img src="image/simpleplan.jpg" style="width: 500px; height: 300px;">
-          			<p><strong><center>Simple Plan</center></strong></p>
-          			<p><center>17 Agustus 2018</center></p>
-           		</div>
-      		</div>
-	</div>
+    <?php
+        while ( $row = mysqli_fetch_array($resultselect)) {
+      ?>
+		   <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="image/<?php echo $row['gambar'];?>" style="width: 500px; height: 300px;">
+                <p><strong><center><?php echo $row['namaevent'];?></center></strong></p>
+                <p><center><?php echo $row['tanggal'];?></center></p>
+               <button class="btn btn-success" data-toggle="modal" data-target="#modalevent<?php echo $row['idevent'];?>" style="color: black">detail</button>
+              </div>
+          </div>
+         <?php 
+  include("4.3.modalevent.php");
+     }
+             
+      ?>
+    </div>
+
 	<br>
 	<br>
 	<br>
