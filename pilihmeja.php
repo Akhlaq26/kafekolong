@@ -20,7 +20,8 @@
       <div class="modal-body">
   <div class="form-group row">
     <div class="col-sm-10">
-      <input type="date" class="form-control" name="tanggal1" placeholder="tanggal" value="<?php echo $tgl?>"  >
+      <input type="hidden" class="form-control" name="tanggal1" placeholder="tanggal" value="<?php echo $tgl?>"  >
+      <input type="text" class="form-control" placeholder="tanggal" value="<?php echo $tgl?>"  disabled>
     </div>
   </div>
    <div class="form-group row">
@@ -32,12 +33,14 @@
    <div class="form-group row">
     <label for="inputEmail3" class="col-sm-3 col-form-label">Waktu</label>
     <div class="col-sm-10">
-      <input type="time" class="form-control" name="jam1" placeholder="Waktu" value="<?php echo $jam?>" >
+      <input type="hidden" class="form-control" name="jam1" placeholder="Waktu" value="<?php echo $jam?>" >
+      <input type="time" class="form-control"  placeholder="Waktu" value="<?php echo $jam?>"  disabled>
     </div>
   </div>
      <div class="form-group row">
     <div class="col-sm-10">
-      <input type="number" class="form-control" name="nomeja1" placeholder="Tahun Terbit" value="<?php echo $nomeja?>" >
+      <input type="hidden" class="form-control" name="nomeja1" placeholder="Tahun Terbit" value="<?php echo $nomeja?>" >
+      <input type="number" class="form-control" placeholder="Tahun Terbit" value="<?php echo $nomeja?>" disabled>
     </div>
   </div>
       </div>

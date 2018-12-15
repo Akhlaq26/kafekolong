@@ -122,13 +122,13 @@ input[type=text]:focus, input[type=password]:focus {
     <div class="col-sm-6">
     
     <label for="name"><b>Nama</b></label>
-    <input type="text" placeholder="Enter Name" name="nama" style="color: black" required>
+    <input type="text" placeholder="Enter Name" name="nama"  style="color: black" required>
  
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" style="color: black" required>
+    <input type="password" placeholder="Enter Password" name="password" id="txtPassword" style="color: black" required>
 
     <label for="re-psw"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Enter Password" style="color: black" required>
+    <input type="password" placeholder="Enter Password" id="txtConfirmPassword" style="color: black" required>
 
     </div>
     <div class="col-sm-6">
@@ -144,8 +144,23 @@ input[type=text]:focus, input[type=password]:focus {
     </div>
     <p>By creating an account you agree to our <a href="#" style="color: yellow;">Terms & Privacy</a>.</p>
 
-    <button type="submit" class="btnlogin" name="buttonregister">Register</button>
+    <button type="submit" id="btnSubmit" class="btnlogin" name="buttonregister">Register</button>
     <span class="register" ">Already have an account? Please <a href="#" style="color: yellow;">Login</a></span>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                var password = $("#txtPassword").val();
+                var confirmPassword = $("#txtConfirmPassword").val();
+                if (password != confirmPassword) {
+                    alert("Passwords do not match.");
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+
     <?php
         if (isset($_POST['buttonregister'])) {
           $nama = $_POST['nama'];
@@ -174,6 +189,7 @@ input[type=text]:focus, input[type=password]:focus {
   </a><br><br>
   <p>@Copyright</p> 
 </footer>
+
 
 <script>
 

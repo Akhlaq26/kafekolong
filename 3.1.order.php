@@ -47,12 +47,13 @@ font{
 
 <div class="container text-center" style=" width: 100%;" >
   <h1>Silahkan Order</h1>
-  <h5>Pilih Tanggal untuk Check Availability Meja</h5>
+  <h5>Pilih Waktu pemesanan untuk Check Availability Meja</h5>
   <div class="row text-center" style="float: left; width: 20%; background-color: #9C6000;">
     <div class="col-sm-3" style="align-content: center;">
     <form method="get">
-      <font>PILIH TANGGAL</font>
-      <input type="date" name="tanggal" >
+      <font>TANGGAL</font>
+      <input type="text" value="<?php  date_default_timezone_set('Asia/Jakarta'); echo date("d F Y");?>" disabled >
+      <input type="hidden" name="tanggal" value="<?php date_default_timezone_set('Asia/Jakarta');  echo date("d F Y");?>">
       <center><font>Jam</font></center>
               <select name="jam" required>
           <option></option>
@@ -86,12 +87,10 @@ font{
 
     <?php
           if(isset($_GET['submit'])){
-        $tgl = $_GET['tanggal'];
-        $jam = $_GET['jam'];
-        $sql = mysqli_query($connection,"SELECT * FROM meja");
+          $tgl = $_GET['tanggal'];
+          $jam = $_GET['jam'];
       
-        $sql1 = mysqli_query($connection,"SELECT * FROM pemesanan JOIN meja ON pemesanan.nomeja=meja.nomeja");
-      $data = mysqli_fetch_array($sql1);
+        $sql1 = mysqli_query($connection,"SELECT * FROM pemesanan NATURAL RIGHT JOIN meja WHERE waktu_pemesanan='$jam' AND idtransaksi is null ");
 
           
         
@@ -100,13 +99,17 @@ font{
     <div class="row" >
 
       <?php
-        while ($datameja = mysqli_fetch_array($sql)) {
+
+        while ($datameja = mysqli_fetch_array($sql1)) {
+
+    
+
       ?>
 
     <div class="col-sm-4" style="border-style: solid ; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $datameja['gambarmeja']?>"  style="width: 500px; height: 300px;">
-            <button type="button" class="btn" data-toggle="modal" data-target="#modalPilih<?php echo $datameja['nomeja']?>" <?php if ($data['tanggal_pemesanan'] == $tgl AND $data['nomeja'] == $datameja['nomeja'] AND $jam == $data['waktu_pemesanan']){ ?> disabled <?php   } ?>>  <?php echo $datameja['nomeja']?></button>
+            <button type="button" class="btn" data-toggle="modal" data-target="#modalPilih<?php echo $datameja['nomeja']?>">  <?php echo $datameja['nomeja']?></button>
           </div>
         </div>
           <?php 

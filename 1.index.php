@@ -7,6 +7,11 @@
  ?>
 <!DOCTYPE html>
 <html lang="en">
+<style type="text/css">
+  <?php
+    include("style.php")
+  ?>
+</style>
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Cafe Kolong</title>
@@ -86,7 +91,7 @@
           <img src="image/cor.jpg" style="width: 500px; height: 300px;">
           <p><strong>Wedhang Cor</strong></p>
           <p>Perpaduan Antara jahe dan susu pilihan</p>
-          <button class="btn" data-toggle="modal" data-target="#myModal">Order</button>
+          <a href="3.1.order.php"><button class="btn">Order</button></a>
         </div>
       </div>
       <div class="col-sm-4">
@@ -94,7 +99,7 @@
           <img src="image/jajang.jpg" style="width: 500px; height: 300px;">
           <p><strong>Mie Blenger</strong></p>
           <p>Kombinasi mie khas jepang dan sambal tradisional</p>
-          <button class="btn" data-toggle="modal" data-target="#myModal">Order</button>
+          <a href="3.1.order.php"><button class="btn">Order</button></a>
         </div>
       </div>
       <div class="col-sm-4">
@@ -102,7 +107,7 @@
           <img src="image/roti.jpg" style="width: 500px; height: 300px;"">
           <p><strong>Roti Bakar Keju</strong></p>
           <p>Mix dari roti kulitas terbaik dengan keju dan cokelat</p>
-          <button class="btn">Order</button>
+          <a href="3.1.order.php"><button class="btn">Order</button></a>
         </div>
       </div>
     </div>

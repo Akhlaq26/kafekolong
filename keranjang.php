@@ -28,8 +28,8 @@ include 'connect.php';
 			</tr>
 			</thead>
 			<tbody>
-		       <?php if(!isset($_SESSION['keranjang'])){?>
-		           <font> Keranjang Kosong </font>
+		       <?php if(empty($_SESSION["keranjang"])){?>
+		           <font> Keranjang Kosong! Silahkan Pilih Menu :) </font>
 		       <?php }else{
 
 				$nomor=1; ?>

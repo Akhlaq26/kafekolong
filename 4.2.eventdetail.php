@@ -26,94 +26,89 @@
 ?>
 </style>
 <body id="event" data-spy="scroll" data-target=".navbar" data-offset="50">
-<nav class="navbar  navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <img src="image/kk.png" alt="Chicago" width="100" height="100">
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-top: 25px">
-        <li><a href="1.index.php">HOME</a></li>
-        <li><a href="2.menu.php">MENU</a></li>
-        <li><a href="3.1.order.php">ORDER</a></li>
-        <li><a href="4.1.event.php">EVENT</a></li>
-                        <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>Profile<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="5.1.1.login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
+<?php include("header.php") ?>
 
 
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Event</p></center>
 </div>
-<?php
-  $queryselect = "SELECT * FROM event ORDER BY idevent DESC limit 3";
-  $resultselect = mysqli_query($connection, $queryselect);
- 
-  ?>
 
-	<div class="container">
-		<center>
+
+	<div class="bg-1">
+    <div class="container" style="background-color: white">
+		<div class="button-container">
+    <center>
 		<button class="btn" data-toggle="modal" data-target="#myModal">Up Coming Event</button>
-		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-		<button class="btn" data-toggle="modal" data-target="#myModal">All Event</button>
-		</center>
-	<br>
-	<br>
+    <form method="post">
+		<button class="btn"  name="allevent">All Event</button>
+    </form>
+    </center>
+    
+  <form method="POST">
 		<center>
 			Bulan :
-			<select name="Bulan"  style="padding: 12px 24px">
-				<option value="January">Januari</option>
-				<option value="February">Pebruari</option>
-				<option value="March">Maret</option>
-				<option value="April">April</option>
-				<option value="May">Mei</option>
-				<option value="June">Juni</option>
-				<option value="Jully">Juli</option>
-				<option value="August">Agustus</option>
-				<option value="September">September</option>
-				<option value="October">Oktober</option>
-				<option value="November">Nopember</option>
-				<option value="December">Desember</option>
-			</select>
-			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-			Tahun :
-			<select name="operator" style="padding: 12px 24px">
-				<option value=2013>2013</option>
-				<option value="2014">2014</option>
-				<option value="2015">2015</option>
-				<option value="2016">2016</option>
-				<option value="2017">2017</option>
-				<option value="2018">2018</option>
-			</select>
-			
-      
-				<button class="btn" data-toggle="modal" data-target="#myModal" style="padding:9px 24px">Ok</button>
-		</center>
-		<div class="container">
-			<input type="text" id="fname" name="name">
-			<a href="#"><span class="glyphicon glyphicon-search"></span></a>
-		</div>
+			<select name="bulan">
+        <option value="01">Januari</option>
+        <option value="02">Februari</option>
+        <option value="03">Maret</option>
+        <option value="04">April</option>
+        <option value="05">Mei</option>
+        <option value="06">Juni</option>
+        <option value="07">Juli</option>
+        <option value="08">Agustus</option>
+        <option value="09">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+      </select>
+<select name="tahun">
+<?php
+$mulai= date('Y') - 50;
+for($i = $mulai;$i<$mulai + 100;$i++){
+    $sel = $i == date('Y') ? ' selected="selected"' : '';
+    echo '<option value="'.$i.'"'.$sel.'>'.$i.'</option>';
+}
+?>
+</select>
+<button class="btn" name="submit" style="width: 100px; height: 40px;">Cari</button>
+</form>
+</div>
+<div class="event">
+<?php
+     if(isset($_POST['allevent'])){
+  $event = "SELECT * FROM event";
+  $eventselect = mysqli_query($connection, $event);
+ 
+   
+  ?>
+  <?php
+        while ( $taeco = mysqli_fetch_array($eventselect)) {
+      ?>
+       <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="image/<?php echo $taeco['gambar'];?>" style="width: 500px; height: 300px;">
+                <p><strong><center><?php echo $taeco['namaevent'];?></center></strong></p>
+                <p><center><?php echo $taeco['tanggal'];?></center></p>
+               <button class="btn btn-success" data-toggle="modal" data-target="#modalevent<?php echo $taeco['idevent'];?>" style="color: black">detail</button>
+              </div>
+          </div>
+         <?php 
+    include("4.3.modalevent.php");
+     }
+   }
+    ?>
+
+    <?php
+     if(isset($_POST['submit'])){
+         $bulan = $_POST['bulan'];
+          $tahun = $_POST['tahun'];
+          $sql = "select * from event where month(tanggal)='$bulan' and year(tanggal) = '$tahun'";
+          
+         $resultselect = mysqli_query($connection, $sql);
+ 
+      ?>
+
     <?php
         while ( $row = mysqli_fetch_array($resultselect)) {
       ?>
@@ -128,13 +123,11 @@
          <?php 
   include("4.3.modalevent.php");
      }
-             
+             }
       ?>
     </div>
-
-	<br>
-	<br>
-	<br>
+</div>
+</div>
 			<footer class="text-center">
   				<a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
     			</a><br><br>

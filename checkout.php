@@ -120,14 +120,13 @@ if (!isset($_SESSION["tanggal"]))
 			if (isset($_POST["checkout"]))
 			{
 				$nama_user = $_SESSION["nama"];
-				$tanggal_pembelian = date("Y-m-d");
 				$total_pembelian = $totalbelanja;
 				$nomeja1 = $_SESSION['nomeja'];
 				$tanggal = $_SESSION['tanggal'];
 				$jam1 = $_SESSION['jam'];
 				//menyimpan data ke tabel pembelian
-				$connection->query("INSERT INTO pembelian (nama_user,tanggal_pembelian,total_pembelian,nomeja,tanggal_pemesanan,waktu_pemesanan)
-					VALUES ('$nama_user','$tanggal_pembelian','$total_pembelian','$nomeja1','$tanggal','$jam1')
+				$connection->query("INSERT INTO pembelian (nama_user,total_pembelian,nomeja,tanggal_pemesanan,waktu_pemesanan)
+					VALUES ('$nama_user','$total_pembelian','$nomeja1','$tanggal','$jam1')
 					");
 
 				//id_pembelian baru 
@@ -140,7 +139,7 @@ if (!isset($_SESSION["tanggal"]))
 				          $jam1 = $_SESSION['jam'];
           
 
-           		  $queryinsert = "INSERT INTO transaksi (tanggal_pemesanan, email, waktu_pemesanan, nomeja)
+           		  $queryinsert = "INSERT INTO pemesanan (tanggal_pemesanan, email, waktu_pemesanan, nomeja)
                   Values ('$tanggal','$nama', '$jam1', $nomeja1);";    
                   mysqli_query($connection, $queryinsert);
 
@@ -159,6 +158,7 @@ if (!isset($_SESSION["tanggal"]))
 					
 					//mengkosongkan keranjang
 					unset($_SESSION["keranjang"]);
+					$_SESSION['id_pembelian'] = $id_pembelian_baru;
 
 					//	tampilan dirubah ke halaman nota, 		
 					echo "<script>alert('beli sukses');</script>";

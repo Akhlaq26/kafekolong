@@ -27,7 +27,9 @@
 </style>
 <body id="event" data-spy="scroll" data-target=".navbar" data-offset="50">
 
-<?php include("header.php") ?>
+<?php 
+    include("header.php");
+?>
 
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Event</p></center>
@@ -40,7 +42,7 @@
 	<div class="container">
     <button class="btn" data-toggle="modal" data-target="#myModal">Up Coming Event
 		<center></button>
-		<button class="btn" data-toggle="modal" data-target="#myModal">All Event</button>
+		<a href="4.2.eventdetail.php"><button class="btn">All Event</button></a>
 		</center>
 		<br>
 		<br>

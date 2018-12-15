@@ -1,3 +1,24 @@
+<?php
+    session_start();
+?>
+
+      <?php
+        
+        if (isset($_POST['selanjutnya'])) {
+          include("connect.php");
+          $norekening = $_POST['norekening'];
+          $namarekening = $_POST['namarekening'];
+          $id_pembelian = $_SESSION['id_pembelian'];
+
+        $queryinsert = "INSERT INTO konfirmasi (id_pembelian, norekening, namarekening)
+          VALUES ('$id_pembelian','$norekening', '$namarekening');";
+
+        mysqli_query($connection, $queryinsert);
+            echo "<meta http-equiv='refresh' content='0;url=3.4.outputpesan.php'> ";
+
+      
+    }
+    ?>
 <!DOCTYPE>
 <html>
 <head>
@@ -121,52 +142,12 @@ span.price {
   }
 }
 </style>
-<style type="text/css">
-  <?php
-  include("style.php");
-?>
-</style>
+
 </head>
 <body id="order" data-spy="scroll" data-target=".navbar" data-offset="50">
-<nav class="navbar  navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <img src="image/kk.png" alt="Chicago" width="100" height="100">
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-top: 25px">
-        <li><a href="1.index.php">HOME</a></li>
-        <li><a href="2.menu.php">MENU</a></li>
-        <li><a href="3.1.order.php">ORDER</a></li>
-        <li><a href="4.1.event.php">EVENT</a></li>
-                        <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>Profie<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="5.1.1.login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-      </ul>
-    </div>
-  </div>
-</nav>
+<?php
+  include("header.php");
+?>
 
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Order</p></center>
@@ -177,62 +158,30 @@ span.price {
 <h2>Pembayaran</h2>
 <p>Silahkan lakukan pembayaran dengan mengisi form berikut ini:</p>
 </div>
+
 <div class="row">
   <div class="col-75">
     <div class="container-pay">
-      <form action="3.4.outputpesan.php">
-      
+      <form method="post">
         <div class="row">
           <div class="col-50">
-
-            <h3>Data Diri:</h3>
-            <label for="fname"><i class="fa fa-user"></i> Nama</label>
-            <input type="text" id="fname" name="name" placeholder="Nama Lengkap">
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="alamat email">
-            <label for="adr"><i class="fa fa-address-card-o"></i> Alamat rumah</label>
-            <input type="text" id="adr" name="address" placeholder="JL.Khayangan Indah">
-            <label for="city"><i class="fa fa-institution"></i> Kota</label>
-            <input type="text" id="city" name="city" placeholder="Zimbabwe">
-
-            <div class="row">
-              <div class="col-50">
-                <label for="state">Kota</label>
-                <input type="text" id="state" name="state" placeholder="kota tempat tinggal anda">
-              </div>
-              <div class="col-50">
-                <label for="kodepos">Kode pos</label>
-                <input type="text" id="kodepos" name="kodepos" placeholder="681xxx">
-              </div>
-            </div>
-          </div>
-
-          <div class="col-50">
-            <h3>Pembayaran :</h3>
-            <label for="fname">Menerima :</label>
+            <label for="fname">Pilih Salah Satu:</label>
             <div class="icon-container-pay">
-              <img src="image/bri.png" style="width: 40px; height: 23px">
-              <img src="image/bni.png" style="width: 40px; height: 23px">
-              <img src="image/mandiri.png" style="width: 40px; height: 23px">
-              <img src="image/danamon.jpg" style="width: 40px; height: 23px">
+              <input type="checkbox" name="sameadr"><img src="bri.png" style="width: 40px; height: 23px">
+              <input type="checkbox" name="sameadr"><img src="bni.png" style="width: 40px; height: 23px">
+              <input type="checkbox" name="sameadr"><img src="mandiri.png" style="width: 40px; height: 23px">
+              <input type="checkbox" name="sameadr"><img src="danamon.jpg" style="width: 40px; height: 23px">
             </div>
-            <label for="cname">Nama pada kartu kredit</label>
-            <input type="text" id="cname" name="cardname" placeholder="Nama  Lengkap">
-            <label for="ccnum">Nomor kartu kredit</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Jumlah Produk</label>
-                <input type="text" id="expyear" name="expyear" placeholder="Total Produk">
-              </div>
-            </div>
-          </div>
-          
+            <label for="ccnum">Nomor Rekening:</label>
+            <input type="text" id="ccnum" name="norekening" placeholder="xxxx-xx-xxxxxx-xx-x">
+            <label for="cname">Nama Pada Rekening</label>
+            <input type="text" id="cname" name="namarekening" placeholder="Nama  Lengkap">
+          </div>       
         </div>
         <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Setuju
+          <input type="checkbox" checked="checked" name="sameadr" >Setuju
         </label>
-        <a href="3.4.outputpesan.php"></a><input type="submit" value="Selanjutnya" class="btn">
+        <input type="submit" name="selanjutnya" value="Selanjutnya" class="btn">
       </form>
     </div>
   </div>

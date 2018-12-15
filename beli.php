@@ -14,8 +14,6 @@ else
 {
 	$_SESSION['keranjang'][$idmenu]=1;
 }
-
-echo "<script>alert('item telah ditambahkan');</script>";
 echo "<script>location='2.menu.php';</script>";
 
 ?>

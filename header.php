@@ -1,10 +1,7 @@
 <nav class="navbar  navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="width: 70px;"><i class="fa fa-bars fa-5x" style="float: right; color: #f7ca18;"></i>                       
       </button>
       <img src="image/kk.png" alt="Chicago" width="100" height="100">
     </div>
@@ -14,14 +11,16 @@
         <li><a href="2.menu.php" name="allmenu">MENU</a></li>
         <li><a href="3.1.order.php">ORDER</a></li>
         <li><a href="4.1.event.php">EVENT</a></li>
+        <?php      if (isset($_SESSION['nama'])) {?>
                         <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><?php      if (isset($_SESSION['nama'])) {
-    echo $_SESSION['nama'];
-   }else{
+                        <i class="fa fa-user fa-fw"></i>
+    <?php echo $_SESSION['nama'];?>
+    <i class="fa fa-caret-down"></i>
+   <?php }else{
     echo "<li><a href=5.1.1.login.php   >LOGIN</a></li>";
    }
-    ?><i class="fa fa-caret-down"></i>
+    ?>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>

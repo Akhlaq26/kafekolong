@@ -84,6 +84,7 @@ $detail = $ambil->fetch_assoc();
 </table>
 	</div>
 </section>
+<a href="3.3.Pembayaran.php"><button class="btn">Lanjut Pembayaran</button></a>
 </div>
 
 <!-- Footer -->
