@@ -5,15 +5,12 @@
       <?php
         
         if (isset($_POST['selanjutnya'])) {
-          include("connect.php");
           $norekening = $_POST['norekening'];
           $namarekening = $_POST['namarekening'];
-          $id_pembelian = $_SESSION['id_pembelian'];
 
-        $queryinsert = "INSERT INTO konfirmasi (id_pembelian, norekening, namarekening)
-          VALUES ('$id_pembelian','$norekening', '$namarekening');";
+          $_SESSION['norekening']    =  $norekening;
+          $_SESSION['namarekening']  =  $namarekening;
 
-        mysqli_query($connection, $queryinsert);
             echo "<meta http-equiv='refresh' content='0;url=3.4.outputpesan.php'> ";
 
       
@@ -173,9 +170,9 @@ span.price {
               <input type="checkbox" name="sameadr"><img src="danamon.jpg" style="width: 40px; height: 23px">
             </div>
             <label for="ccnum">Nomor Rekening:</label>
-            <input type="text" id="ccnum" name="norekening" placeholder="xxxx-xx-xxxxxx-xx-x">
+            <input type="number" id="ccnum" name="norekening" placeholder="xxxx-xx-xxxxxx-xx-x" required>
             <label for="cname">Nama Pada Rekening</label>
-            <input type="text" id="cname" name="namarekening" placeholder="Nama  Lengkap">
+            <input type="text" id="cname" name="namarekening" placeholder="Nama  Lengkap" required>
           </div>       
         </div>
         <label>
@@ -183,19 +180,6 @@ span.price {
         </label>
         <input type="submit" name="selanjutnya" value="Selanjutnya" class="btn">
       </form>
-    </div>
-  </div>
-  <div class="col-25">
-    <div class="container-pay">
-      <h4>List <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-      <p><a href="#">Sosis Bakar</a> <span class="price">Rp.20.000</span></p>
-      <p><a href="#">Kentang Goreng</a> <span class="price">Rp.7.000</span></p>
-      <p><a href="#">Roti Bakar</a> <span class="price">Rp.36.000</span></p>
-      <hr>
-      <p>SubTotal <span class="price" style="color:black"><b>Rp.200.000</b></span></p>
-      <p>Taxes <span class="price" style="color:black"><b>Rp.2000</b></span></p>
-      <p>Shiping <span class="price" style="color:black"><b>Rp.300</b></span></p>
-      <p>Total <span class="price" style="color:black"><b>Rp.66.450</b></span></p>
     </div>
   </div>
 </div>

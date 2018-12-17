@@ -1,3 +1,4 @@
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav class="navbar  navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -7,7 +8,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right" style="padding-top: 25px">
-        <li><a href="1.index.php">HOME</a></li>
+        <li><a href="index.php">HOME</a></li>
         <li><a href="2.menu.php" name="allmenu">MENU</a></li>
         <li><a href="3.1.order.php">ORDER</a></li>
         <li><a href="4.1.event.php">EVENT</a></li>
@@ -23,9 +24,7 @@
     ?>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="5.1.change.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="logout.php"><i class="icon-off"></i>Logout</a></li

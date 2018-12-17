@@ -162,11 +162,6 @@ body {
 <?php include("header.php");
 ?>
 
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Menu</p></center>
@@ -187,9 +182,7 @@ body {
 <div class="tab">
   <form method="post">
   <button name="FastFood" type="btn">FastFood</button>
-  <button name="Dessert" type="btn">Dessert</button>
-  <button name="Meal" type="btn">Meal</button>
-  </form>
+  <button name="Snack" type="btn">Snack</button>
 </div>
     </div>
   </div>
@@ -199,20 +192,28 @@ body {
     </button>
     <div class="dropdown-content-makanan">
   <div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'Milk')" >Milk</button>
-  <button class="tablinks" onclick="openCity(event, 'Coffee')">Coffee</button>
-  <button class="tablinks" onclick="openCity(event, 'Juice')">Juice</button>
+  <button  name="KopiTubrukBiasa" >Kopi Tubruk Biasa</button>
+  <button name="KopiTubrukLuarBiasa">Kopi Tubruk Luar Biasa</button>
+  <button name="KopiPanas">Kopi Panas</button>
+  <button name="KopiDingin" >Kopi Dingin</button>
+  <button name="SusuTenan">Susu Tenan</button>
+  <button name="SusuKocok">Susu Kocok</button>
+  <button name="JusSusu" >Jus Susu</button>
+  <button name="JusBuah">Jus Buah</button>
+  <button name="Teh">Teh</button>
+  <button name="MinumanPanas">Minuman Panas</button>
+  <button name="MinumanDingin">Minuman Dingin</button>
   </div>
     </div>
   </div>
-  
     <div class="dropdown-makanan">
-    <form method="post">
     <button class="dropbtn-makanan" name="allmenu">All Menu
     </button>
     </form>
   </div>
 </div>
+<font>Klik Kategori menu yang akan pesan!</font>
+
 <div class="container-button" style="float: right; width: 160px">
    <button class="btn" data-toggle="modal" data-target="#modalKeranjang">
   <span>Keranjang</span>
@@ -232,34 +233,29 @@ body {
          <span class="badge">Rp.<?php echo number_format($totalbelanja) ?></span>
        <?php }?>
   </button>
+</div>
 <?php
   include("keranjang.php");
 ?>
-</div>
-
-
-
 <!-- Page content -->
-<div class="main" style="width: 1000px; " >
-    <?php
+<div class="main">
+
+    <div class="row text-center" style="overflow: auto; height: 500px; ">
+          <?php
   if (isset($_POST['allmenu'])) {
-  $queryselect = "SELECT *FROM menu";
+  $queryselect = "SELECT * FROM menu";
   $resultselect = mysqli_query($connection, $queryselect);
 ?>
-    <div class="row text-center" style="overflow: auto; height: 1000px; ">
-      <div id="FastFood" name="FastFood" >
  <?php while ($row = mysqli_fetch_array($resultselect)){
   ?>
        <div class="col-sm-6" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
             <p><strong> <?php echo $row['nama']?></strong></p>
-            <p><?php echo $row['deskripsi']?></p>
-            <p><?php echo $row['harga']?></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
             <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
           </div>
         </div>
-      </div>
     <?php
     }
   }
@@ -270,67 +266,259 @@ body {
   $queryselect = "SELECT *FROM menu where categori='FastFood'";
   $resultselect = mysqli_query($connection, $queryselect);
 ?> 
-      <div id="FastFood" name="FastFood" >
   <?php  while ($row = mysqli_fetch_array($resultselect)){
     ?>
        <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
             <p><strong> <?php echo $row['nama']?></strong></p>
-            <p><?php echo $row['deskripsi']?></p>
-            <p><?php echo $row['harga']?></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
             <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
           </div>
         </div>
-      </div>
        <?php
     }
   }
       ?>
       
          <?php
-  if (isset($_POST['Dessert'])) {
-  $queryselect = "SELECT *FROM menu where categori='Dessert'";
+  if (isset($_POST['Snack'])) {
+  $queryselect = "SELECT *FROM menu where categori='Snack'";
   $resultselect = mysqli_query($connection, $queryselect);
 ?> 
-      <div id="Dessert" name="Dessert" >
   <?php  while ($row = mysqli_fetch_array($resultselect)){
     ?>
        <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
             <p><strong> <?php echo $row['nama']?></strong></p>
-            <p><?php echo $row['deskripsi']?></p>
-            <p><?php echo $row['harga']?></p>
+           <p>Rp.<?php echo number_format($row['harga'])?></p>
             <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
           </div>
         </div>
-      </div>
        <?php
     }
   }
       ?>
-<?php
-  if (isset($_POST['Meal'])) {
-  $queryselect = "SELECT *FROM menu where categori='Meal'";
+
+         <?php
+  if (isset($_POST['KopiTubrukBiasa'])) {
+  $queryselect = "SELECT *FROM menu where categori='Kopi Tubruk Biasa'";
   $resultselect = mysqli_query($connection, $queryselect);
-  while ($row = mysqli_fetch_array($resultselect)){
 ?> 
-      <div id="Meal" name="Meal" >
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
        <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
           <div class="thumbnail">
             <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
             <p><strong> <?php echo $row['nama']?></strong></p>
-            <p><?php echo $row['deskripsi']?></p>
-            <p><?php echo $row['harga']?></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
             <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
           </div>
         </div>
-      </div>
        <?php
     }
   }
       ?>
+      
+         <?php
+  if (isset($_POST['KopiTubrukLuarBiasa'])) {
+  $queryselect = "SELECT *FROM menu where categori='Kopi Tubruk Luar Biasa'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+
+               <?php
+  if (isset($_POST['KopiPanas'])) {
+  $queryselect = "SELECT *FROM menu where categori='Kopi Panas'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+      
+         <?php
+  if (isset($_POST['KopiDingin'])) {
+  $queryselect = "SELECT *FROM menu where categori='Kopi Dingin'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+           <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+
+         <?php
+  if (isset($_POST['SusuTenan'])) {
+  $queryselect = "SELECT *FROM menu where categori='Susu Tenan'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+      
+         <?php
+  if (isset($_POST['SusuKocok'])) {
+  $queryselect = "SELECT *FROM menu where categori='Susu Kocok'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+               <?php
+  if (isset($_POST['JusSusu'])) {
+  $queryselect = "SELECT *FROM menu where categori='Jus Susu'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+      
+         <?php
+  if (isset($_POST['JusBuah'])) {
+  $queryselect = "SELECT *FROM menu where categori='Jus Buah'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+           <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+
+         <?php
+  if (isset($_POST['Teh'])) {
+  $queryselect = "SELECT *FROM menu where categori='Teh'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+      
+         <?php
+  if (isset($_POST['MinumanPanas'])) {
+  $queryselect = "SELECT *FROM menu where categori='Minuman Panas'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+        <?php
+  if (isset($_POST['MinumanDingin'])) {
+  $queryselect = "SELECT *FROM menu where categori='Minuman Dingin'";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-6 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
+        </div>
+       <?php
+    }
+  }
+      ?>
+
   </div>
 </div>
 </div>
@@ -375,6 +563,5 @@ $(document).ready(function(){
   });
 })
 </script>
-
 </body>
 </html>

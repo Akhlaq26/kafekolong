@@ -144,7 +144,7 @@ if (isset($_POST['signin'])) {
             $_SESSION['nama']=$row['nama_user'];
             $_SESSION['email']=$row['email'];
 
-            echo "<meta http-equiv='refresh' content='0;url=1.index.php'> ";
+            echo "<meta http-equiv='refresh' content='0;url=index.php'> ";
           } else {?>
 
         <div class="alert alert-danger" role="alert ">

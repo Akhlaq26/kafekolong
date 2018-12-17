@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    include("connect.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,41 +26,8 @@
 </head>
 <body id="order" data-spy="scroll" data-target=".navbar" data-offset="50">
 
-<nav class="navbar  navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <img src="image/kk.png" alt="Chicago" width="100" height="100">
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right" style="padding-top: 25px">
-        <li><a href="1.index.php">HOME</a></li>
-        <li><a href="2.menu.php">MENU</a></li>
-        <li><a href="3.1.order.php">ORDER</a></li>
-        <li><a href="4.1.event.php">EVENT</a></li>
-                        <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>Profile<i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="5.1.1.login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<?php include("header.php");
+?>
 
 <div class="parallax">
   <center><p style="font-family:  Freestyle Script; font-size: 70px; padding-top: 200px; color:white;">Order</p></center>
@@ -72,50 +43,96 @@
     <div class="col-sm-offset-2 col-sm-10">
     </div>
   </div>
- <center><font size="18"><b id="demo"></b></center></font> 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("Oct 5, 2019 00:37:25").getTime();
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-    // Get todays date and time
-    var now = new Date().getTime();
-    
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-    
-    // Time calculations for days, hours, minutes and seconds
-
-    var minutes = Math.floor((distance % (900 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-    // Output the result in an element with id="demo"
-    document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
-    
-    // If the count down is over, write some text 
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
-    }
-}, 1000);
-</script>
 <div class="container">
   <form method="post" enctype="multipart/form-data">
     Kirim bukti pembayaran : 
-    <input type="file" name="namafile"/>
+    <input type="file" name="gambar"/>
     <input class="btn" type="submit" value="Upload" name="submit"/>
-  <!--
-  <?php
-    if (isset($_POST["submit"])) {
-      echo "Nama File :". $_FILES['namafile'] ['name']. "<br/>";
-      echo "Tipe File :". $_FILES['namafile'] ['type']. "<br/>";
-      echo "Size File : ". $_FILES['namafile'] ['size']. "<br/>";
-      echo " Temporary Stored in: ". $_FILES['namafile'] ['tmp_name']. "<br/>";
-      move_uploaded_file($_FILES['namafile']['tmp_name'], $_FILES['namafile']['name']);
-    }
-  ?> -->
+
+
+    <?php
+        if (isset($_POST['submit']))      {
+                $nama_user = $_SESSION['nama_user'];
+                $total_pembelian = $_SESSION['totalbelanja'];
+                $nomeja1 = $_SESSION['nomeja'];
+                $tanggal = $_SESSION['tanggal'];
+                $jam1 = $_SESSION['jam'];
+                //menyimpan data ke tabel pembelian
+                $connection->query("INSERT INTO pembelian (nama_user,total_pembelian,nomeja,tanggal_pemesanan,waktu_pemesanan)
+                  VALUES ('$nama_user','$total_pembelian','$nomeja1','$tanggal','$jam1')
+                  ");
+
+                //id_pembelian baru 
+                $id_pembelian_baru  = $connection ->insert_id;
+
+                //menambah meja
+                          $tanggal = $_SESSION['tanggal'];
+                          $nama = $_SESSION['nama_user'];
+                          $nomeja1 = $_SESSION['nomeja'];
+                          $jam1 = $_SESSION['jam'];
+                  
+
+                        $queryinsert = "INSERT INTO pemesanan (tanggal_pemesanan, email, waktu_pemesanan, nomeja)
+                          Values ('$tanggal','$nama', '$jam1', $nomeja1);";    
+                          mysqli_query($connection, $queryinsert);
+
+
+                foreach ($_SESSION["keranjang"] as $idmenu => $jumlah) 
+                {
+
+                  //mendapatkan data produk berdasarkan idmenu
+                  $ambil = $connection->query("SELECT * FROM menu WHERE idmenu='$idmenu'");
+                  $perproduk = $ambil->fetch_assoc();
+
+                  $nama = $perproduk['nama'];
+                  $harga = $perproduk['harga'];
+                  $subharga = $perproduk['harga']*$jumlah;
+                  $gambarmenu = $perproduk['gambar'];
+                  $connection->query("INSERT INTO pembelian_produk (id_pembelian,idmenu,nama,harga,subharga,jumlah,gambar) VALUES ('$id_pembelian_baru','$idmenu','$nama','$harga','$subharga','$jumlah','$gambarmenu')");
+                  
+                  
+
+                  //mengkosongkan keranjang
+                  unset($_SESSION['keranjang']);
+
+                  //menambah tabel konfirmasi
+                  $norekening  = $_SESSION['norekening'];
+                  $namarekening= $_SESSION['namarekening'];
+                  $namafile = $_FILES['gambar']['name'];
+
+                  $error=$_FILES['gambar']['error'];
+                  $source = $_FILES['gambar']['tmp_name'];
+                  $folder='./image/struk/';
+                  move_uploaded_file($source, $folder.$namafile);
+
+                  if ($error===4) {
+                    echo "<script> alert ('pilih gambar dahulu!');
+                    </script>";
+                    return false; 
+                  }
+                  //cek apakah yang diupload adalah gambar
+                  $ekstensigambarvalid=['jpg','jpeg','png'];
+                  $ekstensigambar=explode('.', $namafile);
+                  $ekstensigambar=strtolower(end($ekstensigambar));
+                  if(!in_array($ekstensigambar, $ekstensigambarvalid)){
+                    echo "<script> alert ('yang anda upload bukan gambar!');
+                    </script>";
+                    return false; 
+                  } 
+
+                  $querykonfirmasi = "INSERT INTO konfirmasi (id_pembelian, norekening, namarekening, struk_pembayaran)
+                  VALUES ('$id_pembelian_baru','$norekening', '$namarekening','$namafile');";
+                  mysqli_query($connection, $querykonfirmasi);
+
+                      unset($_SESSION['norekening']);
+                      unset($_SESSION['namarekening']);
+
+                  //  tampilan dirubah ke halaman nota,     
+                  echo "<script>alert('beli sukses');</script>";
+                  echo "<script>location='nota.php?id=$id_pembelian_baru';</script>";
+                  }
+        }
+    ?>
   </form>
   </div>
 <footer class="text-center">

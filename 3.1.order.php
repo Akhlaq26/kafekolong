@@ -53,7 +53,7 @@ font{
     <form method="get">
       <font>TANGGAL</font>
       <input type="text" value="<?php  date_default_timezone_set('Asia/Jakarta'); echo date("d F Y");?>" disabled >
-      <input type="hidden" name="tanggal" value="<?php date_default_timezone_set('Asia/Jakarta');  echo date("d F Y");?>">
+      <input type="hidden" name="tanggal" value="<?php date_default_timezone_set('Asia/Jakarta');  echo date("Y-m-d");?>">
       <center><font>Jam</font></center>
               <select name="jam" required>
           <option></option>

@@ -1,8 +1,18 @@
 <?php
   include("connect.php");
+  include("hapuspemesanan.php");
 ?>
+<?php 
+  session_start();
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
+<style type="text/css">
+  <?php
+    include("style.php");
+  ?>
+</style>
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Cafe Kolong</title>
@@ -18,14 +28,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style type="text/css">
-    <?php
-    include("style.php");
-    ?>
-  </style>
 </head>
 <body id="home" data-spy="scroll" data-target="navbar" data-offset="50">
-<?php include("header2.php");
+  
+<?php include("header.php");
 ?>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -77,35 +83,26 @@
 <!-- Container (TOUR Section) -->
 <div id="tour" class="bg-1">
   <div class="container">
-    <h3 class="text-center">Best Product</h3>
-    <p class="text-center">Berikut ini adalah list produk terbaik dari kami.<br> Pesan dan rasakan kenikmatannya :)</p>
+    <h3 class="text-center" style="color: white">Best Product</h3>
+    <p class="text-center" style="color: #f7ca18">Berikut ini adalah list produk terbaik dari kami.<br> Pesan dan rasakan kenikmatannya :)</p>
     
-    <div class="row text-center">
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <img src="image/cor.jpg" style="width: 500px; height: 300px;">
-          <p><strong>Wedhang Cor</strong></p>
-          <p>Perpaduan Antara jahe dan susu pilihan</p>
-          <button class="btn" data-toggle="modal" data-target="#myModal">Order</button>
+        <?php
+  $queryselect = "SELECT *, count(nama) as jumlah from pembelian_produk group by nama order by jumlah desc LIMIT 3";
+  $resultselect = mysqli_query($connection, $queryselect);
+?> 
+  <?php  while ($row = mysqli_fetch_array($resultselect)){
+    ?>
+       <div class="col-sm-4 text-center" style="border-style: dotted; border-width: 2px; border-color: #b49a00;">
+          <div class="thumbnail">
+            <img src="image/<?php echo $row['gambar']?>"  style="width: 500px; height: 300px;">
+            <p><strong> <?php echo $row['nama']?></strong></p>
+            <p>Rp.<?php echo number_format($row['harga'])?></p>
+            <a href="beli.php?id=<?php echo $row['idmenu']; ?>"><button class="btn" >Order</button></a>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <img src="image/jajang.jpg" style="width: 500px; height: 300px;">
-          <p><strong>Mie Blenger</strong></p>
-          <p>Kombinasi mie khas jepang dan sambal tradisional</p>
-          <button class="btn" data-toggle="modal" data-target="#myModal">Order</button>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <img src="image/roti.jpg" style="width: 500px; height: 300px;"">
-          <p><strong>Roti Bakar Keju</strong></p>
-          <p>Mix dari roti kulitas terbaik dengan keju dan cokelat</p>
-          <button class="btn">Order</button>
-        </div>
-      </div>
-    </div>
+       <?php
+    }
+      ?>
     <center><a href="2.menu.php"><button type="button" class="btn " >More Menu</button></a></center>
   </div>
   
@@ -123,9 +120,10 @@
       <p><span class="glyphicon glyphicon-envelope"></span>Email: cafekolong@mail.com</p>
     </div>
     <div class="col-md-8">
+      <form method="post">
       <div class="row">
         <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+          <input class="form-control" id="name" name="nama" placeholder="Name" type="text" required>
         </div>
         <div class="col-sm-6 form-group">
           <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
@@ -135,13 +133,28 @@
       <br>
       <div class="row">
         <div class="col-md-12 form-group">
-          <button class="btn pull-right" type="submit">Send</button>
+          <button class="btn pull-right" type="submit" name="submit">Send</button>
         </div>
       </div>
+      </form>
+<?php
+    if (isset($_POST['submit'])) {
+        $nama = $_POST['nama'];
+        $email = $_POST['email'];
+        $pesan = $_POST['comments'];
+
+        $queryinsert = "INSERT INTO feedback (nama_user, email_user, pesan) Values ('$nama','$email', '$pesan');";    
+        mysqli_query($connection, $queryinsert);
+
+        echo "<meta http-equiv='refresh' content='0;url=index.php'> "; 
+
+    }
+?>
+
     </div>
   </div>
   <br>
-  <h3 class="text-center">From The Blog</h3>  
+  <h3 class="text-center">About Us</h3>  
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#menu0">Filosofi</a></li>
     <li><a data-toggle="tab" href="#menu1">Sejarah</a></li>

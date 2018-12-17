@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-    Apakah anda yakin ingin menghapus buku:<strong><?php echo $pecah['nama']?></strong>?
+    Apakah anda yakin ingin menghapus <strong><?php echo $pecah['nama']?></strong>?
     </div>
     <div class="modal-footer">
        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>

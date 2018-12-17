@@ -3,15 +3,24 @@ include("connect.php");
 session_start();
 $emaillogin =$_SESSION['email'];
         if (isset($_POST['submit'])) {
-          $nama = $_POST['nama'];
-          $alamat = $_POST['alamat'];
-          $telp = $_POST['telp'];
-          $tahun_terbit = $_POST['tahun_terbit'];
+          $oldpassword = $_POST['oldpassword'];
+          $newpassword = $_POST['newpassword'];
+          $email = $_POST['email'];
+          
 
-          $queryupdate ="UPDATE user SET nama_user='$nama', alamat='$alamat', telp='$telp' WHERE email='$emaillogin'";
-          mysqli_query($connection, $queryupdate);
-            header("location:5.1.change.php");
-        }
+          $querypassword="SELECT * FROM user WHERE email='$emaillogin'";
+          $result =  mysqli_query($connection, $querypassword);
+          $row =  mysqli_fetch_array($result);
+          if ($oldpassword == $row['password'] AND $email == $row['email']) {
+                $queryupdate ="UPDATE user SET password='$newpassword' WHERE email='$email'";
+                mysqli_query($connection, $queryupdate);
+                unset($_SESSION['email']);
+                $_SESSION['email'] =  $emaillogin;
+          echo "<meta http-equiv='refresh' content='0;url=5.2.change_password.php'> ";          }
+          else{
+            echo "<script>alert('password salah')</script>";
+          }
+      }
     ?>
 
 <!DOCTYPE html>
@@ -102,30 +111,31 @@ input[type=text]:focus, input[type=password]:focus {
 <div class="container" style="background-color: white;">
 
 <div class="singlain" style="float: right; width: 700px; background-color: white" >
-  <?php
-      $queryselecetedit = "SELECT * FROM user WHERE email='$emaillogin'" ;
-      $resultselectededit = mysqli_query($connection,$queryselecetedit);
-      $rowselectededit = mysqli_fetch_assoc($resultselectededit);
-?>
     <form method="post">
       <center><h1>Your information</h1></center>
         <hr>
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">Nama User</label>
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="nama" placeholder="Enter Email" value="<?php echo $rowselectededit['nama_user']?>">
+            <input type="text" class="form-control" name="email" placeholder="enter enail" value="<?php echo $emaillogin?>">
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">Alamat</label>
+          <label for="inputEmail3" class="col-sm-3 col-form-label">old password</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="alamat" placeholder="Enter Alamat" value="<?php echo $rowselectededit['alamat']?>">
+            <input type="password" class="form-control" name="oldpassword" placeholder="Enter old password">
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-3 col-form-label">Telepon</label>
+          <label for="inputEmail3" class="col-sm-3 col-form-label">new Password</label>
           <div class="col-sm-10">
-            <input type="number" class="form-control" name="telp" placeholder="Enter Telepon" value="<?php echo $rowselectededit['telp']?>">
+            <input type="password" class="form-control" id="txtPassword" name="newpassword" placeholder="Enter new Password">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Re-password</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="txtConfirmPassword"  placeholder="Enter Password">
           </div>
         </div>
         <button type="submit" id="update" name="submit" class="btn-profile">Update</button>
@@ -152,6 +162,20 @@ input[type=text]:focus, input[type=password]:focus {
   </a><br><br>
   <p>@Copyright</p> 
 </footer>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#update").click(function () {
+                var password = $("#txtPassword").val();
+                var confirmPassword = $("#txtConfirmPassword").val();
+                if (password != confirmPassword) {
+                    alert("Passwords do not match.");
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
 
 <script>
 $(document).ready(function(){

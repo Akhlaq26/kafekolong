@@ -113,58 +113,14 @@ if (!isset($_SESSION["tanggal"]))
 			</tfoot>
 		</table>
 		<form method="post">
-					<button class="btn btn-primary" name="checkout">Checkout</button>
+					<button class="btn btn-primary" name="checkout">Lanjut Pembayaran</button>
 		</form>
 
 		<?php 
-			if (isset($_POST["checkout"]))
-			{
-				$nama_user = $_SESSION["nama"];
-				$total_pembelian = $totalbelanja;
-				$nomeja1 = $_SESSION['nomeja'];
-				$tanggal = $_SESSION['tanggal'];
-				$jam1 = $_SESSION['jam'];
-				//menyimpan data ke tabel pembelian
-				$connection->query("INSERT INTO pembelian (nama_user,total_pembelian,nomeja,tanggal_pemesanan,waktu_pemesanan)
-					VALUES ('$nama_user','$total_pembelian','$nomeja1','$tanggal','$jam1')
-					");
-
-				//id_pembelian baru 
-				$id_pembelian_baru  = $connection ->insert_id;
-
-				//menambah meja
-				          $tanggal = $_SESSION['tanggal'];
-				          $nama = $_SESSION['nama_user'];
-				          $nomeja1 = $_SESSION['nomeja'];
-				          $jam1 = $_SESSION['jam'];
-          
-
-           		  $queryinsert = "INSERT INTO pemesanan (tanggal_pemesanan, email, waktu_pemesanan, nomeja)
-                  Values ('$tanggal','$nama', '$jam1', $nomeja1);";    
-                  mysqli_query($connection, $queryinsert);
-
-				foreach ($_SESSION["keranjang"] as $idmenu => $jumlah) 
-				{
-
-					//mendapatkan data produk berdasarkan idmenu
-					$ambil = $connection->query("SELECT * FROM menu WHERE idmenu='$idmenu'");
-					$perproduk = $ambil->fetch_assoc();
-
-					$nama = $perproduk['nama'];
-					$harga = $perproduk['harga'];
-					$subharga = $perproduk['harga']*$jumlah;
-					$connection->query("INSERT INTO pembelian_produk (id_pembelian,idmenu,nama,harga,subharga,jumlah) VALUES ('$id_pembelian_baru','$idmenu','$nama','$harga','$subharga','$jumlah') ");
-
-					
-					//mengkosongkan keranjang
-					unset($_SESSION["keranjang"]);
-					$_SESSION['id_pembelian'] = $id_pembelian_baru;
-
-					//	tampilan dirubah ke halaman nota, 		
-					echo "<script>alert('beli sukses');</script>";
-					echo "<script>location='nota.php?id=$id_pembelian_baru';</script>";
-				}
-			}
+			if (isset($_POST["checkout"])){
+				$_SESSION['totalbelanja'] = $totalbelanja;
+			echo "<meta http-equiv='refresh' content='0;url=3.3.Pembayaran.php'> ";
+ 			}
 		?>
 	</div>
 </section>

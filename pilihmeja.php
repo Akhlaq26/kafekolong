@@ -27,7 +27,7 @@
    <div class="form-group row">
     <label for="inputEmail3" class="col-sm-3 col-form-label">Nama</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="nama1" placeholder="nama" value="<?php  echo $_SESSION['nama']?>" >
+      <input type="text" class="form-control" name="nama1" placeholder="nama" value="<?php  echo $_SESSION['nama']?>" required>
     </div>
   </div>
    <div class="form-group row">

@@ -4,7 +4,6 @@
 include 'connect.php';
 
 ?>
-<div class="container">
   <div class="modal fade" id="modalKeranjang" role="dialog">
     <div class="modal-dialog">
     
@@ -69,5 +68,3 @@ include 'connect.php';
       
     </div>
   </div>
-  
-</div>
